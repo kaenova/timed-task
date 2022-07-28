@@ -25,7 +25,7 @@ func (u *Usecase) CreateCheckout(name string) (entity.Checkout, error) {
 	}
 
 	if err := u.r.SaveCheckout(&obj); err != nil {
-		return entity.Checkout{}, nil
+		return entity.Checkout{}, err
 	}
 
 	return obj, nil
@@ -48,7 +48,7 @@ func (u *Usecase) CheckoutGoToProcess(id uint) (entity.Checkout, error) {
 	}
 
 	if err := u.r.SaveCheckout(&obj); err != nil {
-		return entity.Checkout{}, nil
+		return entity.Checkout{}, err
 	}
 
 	return obj, nil
@@ -66,7 +66,7 @@ func (u *Usecase) CheckoutGoToDeliver(id uint) (entity.Checkout, error) {
 	}
 
 	if err := u.r.SaveCheckout(&obj); err != nil {
-		return entity.Checkout{}, nil
+		return entity.Checkout{}, err
 	}
 
 	return obj, nil
@@ -84,7 +84,7 @@ func (u *Usecase) CheckoutCancelFromConfirm(id uint) (entity.Checkout, error) {
 	}
 
 	if err := u.r.SaveCheckout(&obj); err != nil {
-		return entity.Checkout{}, nil
+		return entity.Checkout{}, err
 	}
 
 	return obj, nil
@@ -102,7 +102,7 @@ func (u *Usecase) CheckoutCancelFromProcess(id uint) (entity.Checkout, error) {
 	}
 
 	if err := u.r.SaveCheckout(&obj); err != nil {
-		return entity.Checkout{}, nil
+		return entity.Checkout{}, err
 	}
 
 	return obj, nil

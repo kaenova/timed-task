@@ -84,7 +84,7 @@ func (c *Checkout) CancelFromProcess() error {
 	return nil
 }
 
-// ===
+//  ====
 
 func (c *Checkout) deliveredOrCanceled() bool {
 	return c.Canceled || c.Delivered

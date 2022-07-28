@@ -38,6 +38,10 @@ func (r *Repository) SaveCheckout(objs ...*entity.Checkout) error {
 			return err
 		}
 	}
+	err := tx.Commit().Error
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
