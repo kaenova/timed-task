@@ -30,6 +30,13 @@ func (r *Repository) GetAllCheckout() ([]entity.Checkout, error) {
 	return objs, nil
 }
 
+func (r *Repository) DeleteCheckoutByID(id uint) error {
+	if err := r.g.Delete(&entity.Checkout{}, id).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r *Repository) SaveCheckout(objs ...*entity.Checkout) error {
 	tx := r.g.Begin()
 	for i := 0; i < len(objs); i++ {

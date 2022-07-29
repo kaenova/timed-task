@@ -7,9 +7,12 @@ import (
 func (h *HttpHandler) RegisterCheckoutHandler() {
 	h.f.Get("/checkout", h.getAllCheckout)
 	h.f.Get("/checkout/status/:id", h.getCheckoutId)
+
 	h.f.Post("/checkout", h.createCheckout)
 	h.f.Post("/checkout/process/:id", h.moveToProcess)
 	h.f.Post("/checkout/deliver/:id", h.moveToDeliver)
+
+	h.f.Delete("/checkout/status/:id", h.deleteCheckout)
 }
 
 func (h *HttpHandler) getAllCheckout(c *fiber.Ctx) error {
@@ -34,6 +37,21 @@ func (h *HttpHandler) getCheckoutId(c *fiber.Ctx) error {
 		return c.Status(500).SendString(err.Error())
 	}
 	return c.Status(200).JSON(objs)
+
+}
+
+func (h *HttpHandler) deleteCheckout(c *fiber.Ctx) error {
+
+	id, err := c.ParamsInt("id")
+	if err != nil {
+		return c.Status(400).SendString("ID not valid")
+	}
+
+	err = h.u.DeleteCheckout(uint(id))
+	if err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
+	return c.Status(200).SendString("sukses")
 
 }
 

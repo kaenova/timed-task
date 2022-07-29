@@ -34,6 +34,15 @@ func (u *Usecase) CreateCheckout(name string) (entity.Checkout, error) {
 	return obj, nil
 }
 
+func (u *Usecase) DeleteCheckout(id uint) error {
+
+	if err := u.r.DeleteCheckoutByID(id); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (u *Usecase) GetAllCheckout() ([]entity.Checkout, error) {
 
 	objs, err := u.r.GetAllCheckout()

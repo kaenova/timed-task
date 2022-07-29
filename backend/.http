@@ -27,6 +27,13 @@ content-type: application/json
 }
 
 ###
+# Delete Checkout by ID
+# http://localhost:3000/checkout/status/:id
+# id : uint
+
+DELETE  http://localhost:3000/checkout/status/19
+
+###
 # Checkout to Process
 # http://localhost:3000/checkout/process/:id
 # application/json multipart/form-data application/xml
