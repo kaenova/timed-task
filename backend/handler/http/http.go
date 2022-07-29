@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/kaenova/timed-task/backend/config"
 	"github.com/kaenova/timed-task/backend/usecase"
 )
@@ -27,6 +28,10 @@ func NewHttpHandler(u *usecase.Usecase, config config.HTTPConfig) HttpHandlerI {
 		conf: config,
 	}
 
+	h.f.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 	h.RegisterCheckoutHandler()
 	h.RegisterHelloWorld()
 

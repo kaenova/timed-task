@@ -8,6 +8,6 @@ type HTTPConfig struct {
 func MakeHttpConfig() HTTPConfig {
 	return HTTPConfig{
 		Host: GetEnvOrDefault("HT_HOST", "0.0.0.0"),
-		Port: GetEnvOrDefault("HT_PORT", "3000"),
+		Port: GetEnvOrDefault("HT_PORT", "3001"),
 	}
 }
