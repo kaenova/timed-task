@@ -29,6 +29,7 @@ var (
 	ErrAlreadyDeliveredOrCanceled = errors.New("already delivered or canceled")
 	ErrAlreadyProcessed           = errors.New("already processed")
 	ErrAlreadyDelivered           = errors.New("already delivered")
+	ErrNotProcessed               = errors.New("not processed")
 )
 
 //  ====
@@ -58,6 +59,9 @@ func (c *Checkout) GoToProcess() error {
 func (c *Checkout) GoToDeliver() error {
 	if c.deliveredOrCanceled() {
 		return ErrAlreadyDeliveredOrCanceled
+	}
+	if !c.Processed {
+		return ErrNotProcessed
 	}
 	c.Confirmation = true
 	c.Processed = true

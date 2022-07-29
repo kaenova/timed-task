@@ -1,0 +1,44 @@
+###
+# Hello World
+GET http://localhost:3000/hello
+
+###
+# Get All Checkout
+GET http://localhost:3000/checkout
+
+###
+# Get Checkout by ID
+# http://localhost:3000/checkout/status/:id
+# id : uint
+
+GET http://localhost:3000/checkout/status/16
+
+###
+# Create Checkout
+# http://localhost:3000/checkout/
+# application/json multipart/form-data application/xml
+# name : string
+
+POST http://localhost:3000/checkout HTTP/1.1
+content-type: application/json
+
+{
+    "name": "test"
+}
+
+###
+# Checkout to Process
+# http://localhost:3000/checkout/process/:id
+# application/json multipart/form-data application/xml
+# id : uint
+
+POST http://localhost:3000/checkout/process/18 HTTP/1.1
+
+
+###
+# Checkout to Deliver
+# http://localhost:3000/checkout/process/:id
+# application/json multipart/form-data application/xml
+# id : uint
+
+POST http://localhost:3000/checkout/deliver/18 HTTP/1.1

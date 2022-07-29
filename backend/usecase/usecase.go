@@ -1,15 +1,18 @@
 package usecase
 
 import (
+	"log"
+
 	"github.com/kaenova/timed-task/backend/entity"
 	"github.com/kaenova/timed-task/backend/repository"
 )
 
 type Usecase struct {
-	r repository.Repository
+	r *repository.Repository
 }
 
-func NewUseCase(repository repository.Repository) *Usecase {
+func NewUseCase(repository *repository.Repository) *Usecase {
+	log.Print("Creating use cases")
 	return &Usecase{
 		r: repository,
 	}
@@ -19,12 +22,32 @@ func (u *Usecase) CreateCheckout(name string) (entity.Checkout, error) {
 
 	obj := entity.CreateCheckout(name)
 
+	if err := u.r.SaveCheckout(&obj); err != nil {
+		return entity.Checkout{}, err
+	}
+
 	err := u.r.TimedCancelCheckout(obj)
 	if err != nil {
 		return entity.Checkout{}, err
 	}
 
-	if err := u.r.SaveCheckout(&obj); err != nil {
+	return obj, nil
+}
+
+func (u *Usecase) GetAllCheckout() ([]entity.Checkout, error) {
+
+	objs, err := u.r.GetAllCheckout()
+	if err != nil {
+		return nil, err
+	}
+
+	return objs, nil
+}
+
+func (u *Usecase) GetCheckoutById(id uint) (entity.Checkout, error) {
+
+	obj, err := u.r.GetCheckoutByID(id)
+	if err != nil {
 		return entity.Checkout{}, err
 	}
 
@@ -42,12 +65,12 @@ func (u *Usecase) CheckoutGoToProcess(id uint) (entity.Checkout, error) {
 		return entity.Checkout{}, err
 	}
 
-	err = u.r.TimedCancelCheckout(obj)
-	if err != nil {
+	if err := u.r.SaveCheckout(&obj); err != nil {
 		return entity.Checkout{}, err
 	}
 
-	if err := u.r.SaveCheckout(&obj); err != nil {
+	err = u.r.TimedCancelCheckout(obj)
+	if err != nil {
 		return entity.Checkout{}, err
 	}
 

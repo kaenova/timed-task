@@ -50,7 +50,7 @@ func (r *Repository) TimedCancelCheckout(obj entity.Checkout) error {
 	ctx := context.Background()
 
 	if obj.MaxTimeConfirmation > now {
-		deltaMiliseconds := (obj.MaxTimeConfirmation - now) / 1000
+		deltaMiliseconds := (obj.MaxTimeConfirmation - now) * 1000
 		trg := entity.CheckoutTrigger{
 			ID:                obj.ID,
 			TimeTriggeredLeft: deltaMiliseconds,
@@ -73,7 +73,7 @@ func (r *Repository) TimedCancelCheckout(obj entity.Checkout) error {
 	}
 
 	if obj.MaxTimeProcess != nil && *obj.MaxTimeProcess > now {
-		deltaMiliseconds := (obj.MaxTimeConfirmation - now) / 1000
+		deltaMiliseconds := (obj.MaxTimeConfirmation - now) * 1000
 		trg := entity.CheckoutTrigger{
 			ID:                obj.ID,
 			TimeTriggeredLeft: deltaMiliseconds,
